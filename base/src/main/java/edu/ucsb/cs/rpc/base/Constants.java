@@ -8,6 +8,7 @@ public class Constants {
     public static final int CLIENT_API = 3;
     public static final int CONFIGURATION_FILE = 4;
     public static final int INPUT_SIZE = 5;
+    public static final int WARM_UP_ROUNDS = 6;
 
     public static final String[] ARGS = {
             "-h",    // Display a help message
@@ -16,6 +17,7 @@ public class Constants {
             "-c",   // Client API to use (eg: edu.ucsb.cs.rpc.soap.SOAPClient)
             "-f",   // Configuration file location (optional)
             "-s",   // Input size (interpretation depends on the operation)
+            "-w",   // Number of warm up invocations to execute
     };
 
     public static final int OP_DO_NOTHING  = 0;

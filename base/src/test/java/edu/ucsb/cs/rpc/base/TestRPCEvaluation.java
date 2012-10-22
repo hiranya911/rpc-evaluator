@@ -6,7 +6,7 @@ public class TestRPCEvaluation extends TestCase {
 
     public void testSuccessfulEvaluation() {
         TestClient client = new TestClient(100);
-        RPCEvaluation evaluation = new RPCEvaluation(5, Constants.OP_ECHO_STRING, 10, client);
+        RPCEvaluation evaluation = new RPCEvaluation(5, Constants.OP_ECHO_STRING, 10, 0, client);
         RPCEvaluationResult result = evaluation.run();
         assertEquals(5, result.getTotalInvocations());
         assertEquals(5, result.getSuccessfulInvocations());

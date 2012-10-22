@@ -12,6 +12,7 @@ public class Main {
         int iterations = Constants.UNSPECIFIED;
         int operation = Constants.UNSPECIFIED;
         int inputSize = Constants.UNSPECIFIED;
+        int warmUpRounds = Constants.UNSPECIFIED;
         String client = null;
         Properties properties = new Properties();
 
@@ -42,6 +43,9 @@ public class Main {
                 case Constants.INPUT_SIZE:
                     inputSize = Integer.parseInt(args[++i]);
                     break;
+                case Constants.WARM_UP_ROUNDS:
+                    warmUpRounds = Integer.parseInt(args[++i]);
+                    break;
                 default:
                     printUsageAndExit("Unrecognized command line option: " + args[i]);
             }
@@ -63,18 +67,22 @@ public class Main {
             } else if (inputSize <= 0) {
                 printUsageAndExit("Invalid input size");
             }
+        } else if (warmUpRounds != Constants.UNSPECIFIED && warmUpRounds < 0) {
+            printUsageAndExit("Invalid warm up iteration count");
         }
 
         Client clientImpl;
         try {
             clientImpl = (Client) Main.class.getClassLoader().loadClass(client).newInstance();
             clientImpl.init(properties);
+            System.out.println("RPC client initialized successfully");
         } catch (Exception e) {
             handleException("Error initializing the client API", e);
             return;
         }
 
-        RPCEvaluation evaluation = new RPCEvaluation(iterations, operation, inputSize, clientImpl);
+        RPCEvaluation evaluation = new RPCEvaluation(iterations, operation, inputSize,
+                warmUpRounds, clientImpl);
         RPCEvaluationResult result = evaluation.run();
         System.out.println(result);
         clientImpl.destroy();

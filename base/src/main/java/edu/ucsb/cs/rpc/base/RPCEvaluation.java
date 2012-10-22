@@ -7,6 +7,7 @@ public class RPCEvaluation {
     private int iterations;
     private int operation;
     private int inputSize;
+    private int warmUpRounds;
     private Client client;
 
     private String inputString;
@@ -15,43 +16,50 @@ public class RPCEvaluation {
     private Map<Integer,Integer> inputMap;
     private DataObject inputObject;
 
-    public RPCEvaluation(int iterations, int operation, int inputSize, Client client) {
+    public RPCEvaluation(int iterations, int operation, int inputSize,
+                         int warmUpRounds, Client client) {
         this.iterations = iterations;
         this.operation = operation;
         this.inputSize = inputSize;
+        this.warmUpRounds = warmUpRounds;
         this.client = client;
     }
 
     public RPCEvaluationResult run() {
         preProcess();
+        if (warmUpRounds > 0) {
+            System.out.println("Running " + warmUpRounds + " warm up invocations");
+            for (int i = 0; i < warmUpRounds; i++) {
+                invoke();
+            }
+        }
+
+        System.out.println("Starting test...");
         List<InvocationResult> results = new ArrayList<InvocationResult>();
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < iterations; i++) {
-            InvocationResult result = null;
-            switch (operation) {
-                case Constants.OP_DO_NOTHING:
-                    result = client.doNothing();
-                    break;
-                case Constants.OP_ECHO_STRING:
-                    result = client.echoString(inputString);
-                    break;
-                case Constants.OP_ECHO_INT:
-                    result = client.echoInt(inputInt);
-                    break;
-                case Constants.OP_ECHO_ARRAY:
-                    result = client.echoArray(inputArray);
-                    break;
-                case Constants.OP_ECHO_MAP:
-                    result = client.echoMap(inputMap);
-                    break;
-                case Constants.OP_ECHO_OBJECT:
-                    result = client.echoObject(inputObject);
-                    break;
-            }
-            results.add(result);
+            results.add(invoke());
         }
         long endTime = System.currentTimeMillis();
         return new RPCEvaluationResult(results, startTime, endTime);
+    }
+
+    private InvocationResult invoke() {
+        switch (operation) {
+            case Constants.OP_DO_NOTHING:
+                return client.doNothing();
+            case Constants.OP_ECHO_STRING:
+                return client.echoString(inputString);
+            case Constants.OP_ECHO_INT:
+                return client.echoInt(inputInt);
+            case Constants.OP_ECHO_ARRAY:
+                return client.echoArray(inputArray);
+            case Constants.OP_ECHO_MAP:
+                return client.echoMap(inputMap);
+            case Constants.OP_ECHO_OBJECT:
+                return client.echoObject(inputObject);
+        }
+        return null;
     }
 
     private void preProcess() {
