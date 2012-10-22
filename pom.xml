@@ -11,5 +11,6 @@
 
     <modules>
         <module>base</module>
+        <module>soap</module>
     </modules>
 </project>
