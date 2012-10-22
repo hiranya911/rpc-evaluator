@@ -12,6 +12,7 @@
     <modules>
         <module>base</module>
         <module>soap-service</module>
+        <module>soap-client</module>
     </modules>
 
     <repositories>
@@ -49,9 +50,21 @@
                 <version>1.1.1</version>
             </dependency>
             <dependency>
+                <groupId>wsdl4j</groupId>
+                <artifactId>wsdl4j</artifactId>
+                <version>1.6.2</version>
+            </dependency>
+            <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>3.8.2</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>edu.ucsb.cs.rpc-evaluator</groupId>
+                <artifactId>rpc-base</artifactId>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

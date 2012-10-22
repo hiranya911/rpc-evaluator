@@ -1,5 +1,5 @@
 /**
- * TestServiceMessageReceiverInOnly.java
+ * EchoServiceMessageReceiverInOnly.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.7.0-SNAPSHOT  Built on : Oct 22, 2012 (01:35:57 GMT)
@@ -8,9 +8,9 @@ package edu.ucsb.cs.rpc.soap.service;
 
 
 /**
- *  TestServiceMessageReceiverInOnly message receiver
+ *  EchoServiceMessageReceiverInOnly message receiver
  */
-public class TestServiceMessageReceiverInOnly extends org.apache.axis2.receivers.AbstractMessageReceiver {
+public class EchoServiceMessageReceiverInOnly extends org.apache.axis2.receivers.AbstractMessageReceiver {
     public void invokeBusinessLogic(
         org.apache.axis2.context.MessageContext msgContext)
         throws org.apache.axis2.AxisFault {
@@ -18,7 +18,7 @@ public class TestServiceMessageReceiverInOnly extends org.apache.axis2.receivers
             // get the implementation class for the Web Service
             Object obj = getTheImplementationObject(msgContext);
 
-            TestServiceSkeleton skel = (TestServiceSkeleton) obj;
+            EchoServiceSkeleton skel = (EchoServiceSkeleton) obj;
 
             //Out Envelop
             org.apache.axiom.soap.SOAPEnvelope envelope = null;

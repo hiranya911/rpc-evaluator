@@ -6,32 +6,9 @@
         <groupId>edu.ucsb.cs.rpc-evaluator</groupId>
         <artifactId>rpc-evaluator</artifactId>
         <version>1.0</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>rpc-soap-service</artifactId>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.axis2</groupId>
-                <artifactId>axis2-aar-maven-plugin</artifactId>
-                <version>1.6.2</version>
-                <configuration>
-                    <servicesXmlFile>${basedir}/src/main/resources/services.xml</servicesXmlFile>
-                    <wsdlFile>${basedir}/src/main/resources/EchoService.wsdl</wsdlFile>
-                    <wsdlFileName>EchoService.wsdl</wsdlFileName>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>aar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+    <artifactId>rpc-soap-client</artifactId>
 
     <dependencies>
         <dependency>
@@ -45,6 +22,14 @@
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>wsdl4j</groupId>
+            <artifactId>wsdl4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>edu.ucsb.cs.rpc-evaluator</groupId>
+            <artifactId>rpc-base</artifactId>
         </dependency>
     </dependencies>
 </project>

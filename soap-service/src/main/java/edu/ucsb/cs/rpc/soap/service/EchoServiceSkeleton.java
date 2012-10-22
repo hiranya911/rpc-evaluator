@@ -1,5 +1,5 @@
 /**
- * TestServiceSkeleton.java
+ * EchoServiceSkeleton.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.7.0-SNAPSHOT  Built on : Oct 22, 2012 (01:35:57 GMT)
@@ -11,9 +11,9 @@ import edu.ucsb.cs.rpc.soap.service.types.Entry2;
 import edu.ucsb.cs.rpc.soap.service.types.Map2;
 
 /**
- *  TestServiceSkeleton java skeleton for the axisService
+ *  EchoServiceSkeleton java skeleton for the axisService
  */
-public class TestServiceSkeleton {
+public class EchoServiceSkeleton {
     /**
      * Auto generated method signature
      *
