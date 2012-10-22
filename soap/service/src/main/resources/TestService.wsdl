@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://base.rpc.cs.ucsb.edu" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:ns="http://base.rpc.cs.ucsb.edu" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:ax23="http://ws.apache.org/namespaces/axis2/map" xmlns:ax21="http://base.rpc.cs.ucsb.edu/xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://ws.apache.org/namespaces/axis2/map">
+            <xs:complexType name="entry1">
+                <xs:sequence>
+                    <xs:element name="key" type="xs:int"/>
+                    <xs:element name="value" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="map1">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="entry" nillable="true" type="ax23:entry1"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="entry2">
+                <xs:sequence>
+                    <xs:element name="key" type="xs:int"/>
+                    <xs:element name="value" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="map2">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="entry" nillable="true" type="ax23:entry2"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://base.rpc.cs.ucsb.edu" xmlns:ax22="http://base.rpc.cs.ucsb.edu/xsd" xmlns:ax24="http://ws.apache.org/namespaces/axis2/map">
+            <xs:import namespace="http://base.rpc.cs.ucsb.edu/xsd"/>
+            <xs:import namespace="http://ws.apache.org/namespaces/axis2/map"/>
+            <xs:element name="echoString">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="args0" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="echoStringResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="echoObject">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="args0" nillable="true" type="ax21:DataObject"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="echoObjectResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ax21:DataObject"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="echoMap">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="args0" nillable="true" type="ax23:map1"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="echoMapResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ax23:map2"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="echoInt">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="args0" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="echoIntResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="return" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="echoBlob">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="args0" nillable="true" type="xs:base64Binary"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="echoBlobResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:base64Binary"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="echoArray">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="args0" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="echoArrayResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="return" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="doNothing">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://base.rpc.cs.ucsb.edu/xsd">
+            <xs:complexType name="DataObject">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="character" type="xs:unsignedShort"/>
+                    <xs:element minOccurs="0" name="decimal" type="xs:float"/>
+                    <xs:element minOccurs="0" name="integer" type="xs:int"/>
+                    <xs:element minOccurs="0" name="string" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="echoMapRequest">
+    <wsdl:part name="parameters" element="ns:echoMap">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="echoIntResponse">
+    <wsdl:part name="parameters" element="ns:echoIntResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="echoBlobRequest">
+    <wsdl:part name="parameters" element="ns:echoBlob">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="echoBlobResponse">
+    <wsdl:part name="parameters" element="ns:echoBlobResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="doNothingRequest">
+    <wsdl:part name="parameters" element="ns:doNothing">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="echoObjectResponse">
+    <wsdl:part name="parameters" element="ns:echoObjectResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="echoStringRequest">
+    <wsdl:part name="parameters" element="ns:echoString">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="echoArrayRequest">
+    <wsdl:part name="parameters" element="ns:echoArray">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="echoIntRequest">
+    <wsdl:part name="parameters" element="ns:echoInt">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="echoObjectRequest">
+    <wsdl:part name="parameters" element="ns:echoObject">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="echoMapResponse">
+    <wsdl:part name="parameters" element="ns:echoMapResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="echoArrayResponse">
+    <wsdl:part name="parameters" element="ns:echoArrayResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="echoStringResponse">
+    <wsdl:part name="parameters" element="ns:echoStringResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="TestServicePortType">
+    <wsdl:operation name="echoInt">
+      <wsdl:input message="ns:echoIntRequest" wsaw:Action="urn:echoInt">
+    </wsdl:input>
+      <wsdl:output message="ns:echoIntResponse" wsaw:Action="urn:echoIntResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="doNothing">
+      <wsdl:input message="ns:doNothingRequest" wsaw:Action="urn:doNothing">
+    </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="echoArray">
+      <wsdl:input message="ns:echoArrayRequest" wsaw:Action="urn:echoArray">
+    </wsdl:input>
+      <wsdl:output message="ns:echoArrayResponse" wsaw:Action="urn:echoArrayResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="echoMap">
+      <wsdl:input message="ns:echoMapRequest" wsaw:Action="urn:echoMap">
+    </wsdl:input>
+      <wsdl:output message="ns:echoMapResponse" wsaw:Action="urn:echoMapResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="echoBlob">
+      <wsdl:input message="ns:echoBlobRequest" wsaw:Action="urn:echoBlob">
+    </wsdl:input>
+      <wsdl:output message="ns:echoBlobResponse" wsaw:Action="urn:echoBlobResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="echoString">
+      <wsdl:input message="ns:echoStringRequest" wsaw:Action="urn:echoString">
+    </wsdl:input>
+      <wsdl:output message="ns:echoStringResponse" wsaw:Action="urn:echoStringResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="echoObject">
+      <wsdl:input message="ns:echoObjectRequest" wsaw:Action="urn:echoObject">
+    </wsdl:input>
+      <wsdl:output message="ns:echoObjectResponse" wsaw:Action="urn:echoObjectResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TestServiceSoap11Binding" type="ns:TestServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="echoInt">
+      <soap:operation soapAction="urn:echoInt" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="doNothing">
+      <soap:operation soapAction="urn:doNothing" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="echoArray">
+      <soap:operation soapAction="urn:echoArray" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="echoMap">
+      <soap:operation soapAction="urn:echoMap" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="echoBlob">
+      <soap:operation soapAction="urn:echoBlob" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="echoString">
+      <soap:operation soapAction="urn:echoString" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="echoObject">
+      <soap:operation soapAction="urn:echoObject" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="TestServiceSoap12Binding" type="ns:TestServicePortType">
+    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="echoInt">
+      <soap12:operation soapAction="urn:echoInt" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="doNothing">
+      <soap12:operation soapAction="urn:doNothing" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="echoArray">
+      <soap12:operation soapAction="urn:echoArray" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="echoMap">
+      <soap12:operation soapAction="urn:echoMap" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="echoBlob">
+      <soap12:operation soapAction="urn:echoBlob" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="echoString">
+      <soap12:operation soapAction="urn:echoString" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="echoObject">
+      <soap12:operation soapAction="urn:echoObject" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="TestServiceHttpBinding" type="ns:TestServicePortType">
+    <http:binding verb="POST"/>
+    <wsdl:operation name="echoInt">
+      <http:operation location="echoInt"/>
+      <wsdl:input>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="doNothing">
+      <http:operation location="doNothing"/>
+      <wsdl:input>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="echoArray">
+      <http:operation location="echoArray"/>
+      <wsdl:input>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="echoMap">
+      <http:operation location="echoMap"/>
+      <wsdl:input>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="echoBlob">
+      <http:operation location="echoBlob"/>
+      <wsdl:input>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="echoString">
+      <http:operation location="echoString"/>
+      <wsdl:input>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="echoObject">
+      <http:operation location="echoObject"/>
+      <wsdl:input>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TestService">
+    <wsdl:port name="TestServiceHttpEndpoint" binding="ns:TestServiceHttpBinding">
+      <http:address location="http://localhost:8080/axis2/services/TestService"/>
+    </wsdl:port>
+    <wsdl:port name="TestServiceHttpSoap11Endpoint" binding="ns:TestServiceSoap11Binding">
+      <soap:address location="http://localhost:8080/axis2/services/TestService"/>
+    </wsdl:port>
+    <wsdl:port name="TestServiceHttpSoap12Endpoint" binding="ns:TestServiceSoap12Binding">
+      <soap12:address location="http://localhost:8080/axis2/services/TestService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
