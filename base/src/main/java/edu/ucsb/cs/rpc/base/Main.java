@@ -40,7 +40,8 @@ public class Main {
                     }
                     break;
                 case Constants.INPUT_SIZE:
-                    inputSize = Integer.parseInt(args[i++]);
+                    inputSize = Integer.parseInt(args[++i]);
+                    break;
                 default:
                     printUsageAndExit("Unrecognized command line option: " + args[i]);
             }
