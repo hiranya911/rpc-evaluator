@@ -74,7 +74,8 @@ public class Main {
         }
 
         RPCEvaluation evaluation = new RPCEvaluation(iterations, operation, inputSize, clientImpl);
-        evaluation.run();
+        RPCEvaluationResult result = evaluation.run();
+        System.out.println(result);
         clientImpl.destroy();
     }
 

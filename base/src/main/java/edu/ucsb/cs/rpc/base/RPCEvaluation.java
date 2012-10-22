@@ -22,7 +22,7 @@ public class RPCEvaluation {
         this.client = client;
     }
 
-    public void run() {
+    public RPCEvaluationResult run() {
         preProcess();
         List<InvocationResult> results = new ArrayList<InvocationResult>();
         long startTime = System.currentTimeMillis();
@@ -51,7 +51,7 @@ public class RPCEvaluation {
             results.add(result);
         }
         long endTime = System.currentTimeMillis();
-        postProcess(results, endTime - startTime);
+        return new RPCEvaluationResult(results, startTime, endTime);
     }
 
     private void preProcess() {
@@ -89,35 +89,4 @@ public class RPCEvaluation {
                 inputObject.setString("RPC_EVALUATION");
         }
     }
-
-    private void postProcess(List<InvocationResult> results, long duration) {
-        long success = 0;
-        long fail = 0;
-        long success_time = 0;
-        long fail_time = 0;
-        for (InvocationResult result : results) {
-            if (result.isSuccess()) {
-                success++;
-                success_time += result.getLatency();
-            } else {
-                fail++;
-                fail_time += result.getLatency();
-            }
-        }
-
-        long total = success + fail;
-        System.out.println("Total duration: " + duration + "ms");
-        System.out.println("Total invocations: " + total);
-        System.out.println("Successful invocations: " + success);
-        System.out.println("Failed invocations: " + fail);
-        System.out.println("Success rate: " + (success * 100/ total) + "%");
-        System.out.println("Success throughput: " + (success/success_time/1000) + "TPS");
-        System.out.println("Failure throughput: " + (fail/fail_time/1000) + "TPS");
-        System.out.println("Overall throughput: " + (total/duration/1000) + "TPS");
-        System.out.println("Success Latency: " + (success_time/success) + "ms");
-        System.out.println("Failure Latency: " + (fail_time/fail) + "ms");
-        System.out.println("Overall Latency: " + ((success_time + fail_time)/total) + "ms");
-    }
-
-
 }
