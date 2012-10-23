@@ -13,6 +13,7 @@
         <module>base</module>
         <module>soap-service</module>
         <module>soap-client</module>
+        <module>distribution</module>
     </modules>
 
     <repositories>
@@ -28,6 +29,7 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- SOAP/Axis2 Dependencies -->
             <dependency>
                 <groupId>org.apache.axis2</groupId>
                 <artifactId>axis2</artifactId>
@@ -55,6 +57,27 @@
                 <version>1.6.2</version>
             </dependency>
             <dependency>
+                <groupId>org.apache.woden</groupId>
+                <artifactId>woden-core</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.neethi</groupId>
+                <artifactId>neethi</artifactId>
+                <version>3.0.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.axis2</groupId>
+                <artifactId>axis2-transport-local</artifactId>
+                <version>1.7.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.axis2</groupId>
+                <artifactId>axis2-transport-http</artifactId>
+                <version>1.7.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>3.8.2</version>
@@ -64,6 +87,11 @@
             <dependency>
                 <groupId>edu.ucsb.cs.rpc-evaluator</groupId>
                 <artifactId>rpc-base</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>edu.ucsb.cs.rpc-evaluator</groupId>
+                <artifactId>rpc-soap-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
