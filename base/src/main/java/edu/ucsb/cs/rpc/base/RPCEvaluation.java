@@ -15,6 +15,7 @@ public class RPCEvaluation {
     private int[] inputArray;
     private Map<Integer,Integer> inputMap;
     private DataObject inputObject;
+    private byte[] inputBlob;
 
     public RPCEvaluation(int iterations, int operation, int inputSize,
                          int warmUpRounds, Client client) {
@@ -58,6 +59,8 @@ public class RPCEvaluation {
                 return client.echoMap(inputMap);
             case Constants.OP_ECHO_OBJECT:
                 return client.echoObject(inputObject);
+            case Constants.OP_ECHO_BLOB:
+                return client.echoBlob(inputBlob);
         }
         return null;
     }
@@ -85,7 +88,7 @@ public class RPCEvaluation {
             case Constants.OP_ECHO_MAP:
                 inputMap = new HashMap<Integer, Integer>();
                 for (int i = 0; i < inputSize; i++) {
-                    inputMap.put(randomizer.nextInt(10), randomizer.nextInt(10));
+                    inputMap.put(i, randomizer.nextInt(10));
                 }
                 break;
             case Constants.OP_ECHO_OBJECT:
@@ -95,6 +98,10 @@ public class RPCEvaluation {
                 inputObject.setDecimal(randomizer.nextFloat());
                 inputObject.setInteger(randomizer.nextInt(10));
                 inputObject.setString("RPC_EVALUATION");
+                break;
+            case Constants.OP_ECHO_BLOB:
+                inputBlob = new byte[inputSize];
+                randomizer.nextBytes(inputBlob);
         }
     }
 }

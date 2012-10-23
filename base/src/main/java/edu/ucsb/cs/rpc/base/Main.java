@@ -73,6 +73,10 @@ public class Main {
 
         Client clientImpl;
         try {
+            int index = Arrays.asList(Constants.CLIENTS).indexOf(client);
+            if (index != -1) {
+                client = Constants.CLIENT_API_NAMES[index];
+            }
             clientImpl = (Client) Main.class.getClassLoader().loadClass(client).newInstance();
             clientImpl.init(properties);
             System.out.println("RPC client initialized successfully");

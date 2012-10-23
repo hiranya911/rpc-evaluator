@@ -38,4 +38,10 @@ public class Constants {
 
     public static final String ALPHABET =
             "ABCDEFGHIJKLMNOPQRSTUVWXYZ1bcdefghijklmnopqrstuvwxyz1234567890";
+
+    public static final String[] CLIENTS = { "soap" };
+
+    public static final String[] CLIENT_API_NAMES = {
+            "edu.ucsb.cs.rpc.soap.client.EchoClient"
+    };
 }
