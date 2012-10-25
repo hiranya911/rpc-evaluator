@@ -1,5 +1,6 @@
 package edu.ucsb.cs.rpc.base;
 
+import java.text.DecimalFormat;
 import java.util.Collection;
 
 public class RPCEvaluationResult {
@@ -73,40 +74,52 @@ public class RPCEvaluationResult {
         return maxFailureLatency;
     }
 
+    private String formatDecimal(double number) {
+        DecimalFormat format = new DecimalFormat("#.##");
+        return format.format(number);
+    }
+
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("Total time elapsed: " + duration + " ms\n")
-            .append("Total invocations: " + totalInvocations + "\n")
-            .append("Successful invocations: " + successfulInvocations + "\n")
-            .append("Failed invocations: " + failedInvocations + "\n")
-            .append("Success rate: " + (successfulInvocations * 100 / totalInvocations) + "%\n");
+        builder.append("\nTotal time elapsed: ").append(duration).append(" ms\n")
+                .append("Total invocations: ").append(totalInvocations).append("\n")
+                .append("Successful invocations: ").append(successfulInvocations).append("\n")
+                .append("Failed invocations: ").append(failedInvocations).append("\n")
+                .append("Success rate: ")
+                .append(formatDecimal(successfulInvocations * 100 / totalInvocations)).append("%\n");
 
         if (totalSuccessLatency > 0) {
-            builder.append("Success throughput: " +
-                    (successfulInvocations / (totalSuccessLatency / 1000.0)) + " TPS\n");
+            builder.append("Successful invocation throughput: ").append(
+                    formatDecimal(successfulInvocations / (totalSuccessLatency / 1000.0))).
+                    append(" TPS\n");
         }
         if (totalFailureLatency > 0) {
-            builder.append("Failure throughput: " +
-                    (failedInvocations / (totalFailureLatency / 1000.0)) + " TPS\n");
+            builder.append("Failed invocation throughput: ").append(
+                    formatDecimal(failedInvocations / (totalFailureLatency / 1000.0))).append(" TPS\n");
         }
 
-        builder.append("Overall throughput: " +
-                (totalInvocations / ((totalSuccessLatency + totalFailureLatency) / 1000.0)) + " TPS\n");
+        builder.append("Overall invocation throughput: ").append(
+                formatDecimal(totalInvocations / ((totalSuccessLatency + totalFailureLatency) / 1000.0)))
+                .append(" TPS\n").append("Application throughput: ").append(
+                formatDecimal(totalInvocations / (duration / 1000.0))).append(" TPS\n");
 
         if (successfulInvocations > 0) {
-            builder.append("Average success latency: " +
-                    (totalSuccessLatency / successfulInvocations) + " ms\n")
-                    .append("Minimum success latency: " + minSuccessLatency + " ms\n")
-                    .append("Maximum success latency: " + maxSuccessLatency + " ms\n");
+            builder.append("Successful invocation latency: ").append(
+                    formatDecimal((double) totalSuccessLatency / successfulInvocations)).append(" ms\n")
+                    .append("Minimum successful invocation latency: ").append(minSuccessLatency).append(" ms\n")
+                    .append("Maximum success invocation latency: ").append(maxSuccessLatency).append(" ms\n");
         }
         if (failedInvocations > 0) {
-            builder.append("Average failure latency: " +
-                    (totalFailureLatency / failedInvocations) + " ms\n")
-                    .append("Minimum failure latency: " + minFailureLatency + " ms\n")
-                    .append("Maximum failure latency: " + maxFailureLatency + " ms\n");
+            builder.append("Failed invocation latency: ").append(
+                    formatDecimal((double) totalFailureLatency / failedInvocations)).append(" ms\n")
+                    .append("Minimum failed invocation latency: ").append(minFailureLatency).append(" ms\n")
+                    .append("Maximum failed invocation latency: ").append(maxFailureLatency).append(" ms\n");
         }
-        builder.append("Average overall latency: " +
-                ((totalSuccessLatency + totalFailureLatency) / totalInvocations) + " ms\n");
+        builder.append("Overall invocation latency: ").append(
+                formatDecimal((double) (totalSuccessLatency + totalFailureLatency) / totalInvocations))
+                .append(" ms\n")
+                .append("Application latency: ").append(
+                formatDecimal((double) duration / totalInvocations)).append(" ms\n");
         return builder.toString();
     }
 

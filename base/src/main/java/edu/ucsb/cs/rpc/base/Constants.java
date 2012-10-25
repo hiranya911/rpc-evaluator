@@ -33,7 +33,7 @@ public class Constants {
 
     public static final int UNSPECIFIED = -1234;
 
-    public static final int[] INPUT_SIZE_REQUIRED_OPS = { OP_ECHO_STRING,
+    public static final Integer[] INPUT_SIZE_REQUIRED_OPS = { OP_ECHO_STRING,
             OP_ECHO_ARRAY, OP_ECHO_MAP, OP_ECHO_BLOB };
 
     public static final String ALPHABET =

@@ -1,6 +1,10 @@
 package edu.ucsb.cs.rpc.base;
 
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 public class RPCEvaluation {
 
@@ -16,6 +20,8 @@ public class RPCEvaluation {
     private Map<Integer,Integer> inputMap;
     private DataObject inputObject;
     private byte[] inputBlob;
+
+    private int progressCounter;
 
     public RPCEvaluation(int iterations, int operation, int inputSize,
                          int warmUpRounds, Client client) {
@@ -36,12 +42,22 @@ public class RPCEvaluation {
         }
 
         System.out.println("Starting test...");
+        progressCounter = 0;
+        ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();
+        ScheduledFuture future = exec.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Completed " + progressCounter + " iterations");
+            }
+        }, 30, 30, TimeUnit.SECONDS);
         List<InvocationResult> results = new ArrayList<InvocationResult>();
         long startTime = System.currentTimeMillis();
-        for (int i = 0; i < iterations; i++) {
+        for (;progressCounter < iterations; progressCounter++) {
             results.add(invoke());
         }
         long endTime = System.currentTimeMillis();
+        future.cancel(true);
+        exec.shutdownNow();
         return new RPCEvaluationResult(results, startTime, endTime);
     }
 
