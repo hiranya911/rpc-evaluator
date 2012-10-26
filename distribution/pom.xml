@@ -50,6 +50,10 @@
             <groupId>edu.ucsb.cs.rpc-evaluator</groupId>
             <artifactId>rpc-soap-client</artifactId>
         </dependency>
+        <dependency>
+            <groupId>edu.ucsb.cs.rpc-evaluator</groupId>
+            <artifactId>rpc-thrift</artifactId>
+        </dependency>
 
         <!-- SOAP/Axis2 Dependencies -->
         <dependency>
@@ -83,6 +87,11 @@
         <dependency>
             <groupId>org.apache.axis2</groupId>
             <artifactId>axis2-transport-http</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
     </dependencies>
 

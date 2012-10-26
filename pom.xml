@@ -14,6 +14,7 @@
         <module>soap-service</module>
         <module>soap-client</module>
         <module>distribution</module>
+        <module>thrift</module>
     </modules>
 
     <repositories>
@@ -77,6 +78,18 @@
                 <version>1.7.0-SNAPSHOT</version>
             </dependency>
 
+            <!-- Thrift Dependencies -->
+            <dependency>
+                <groupId>org.apache.thrift</groupId>
+                <artifactId>libthrift</artifactId>
+                <version>0.9.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.6.6</version>
+            </dependency>
+
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
@@ -92,6 +105,11 @@
             <dependency>
                 <groupId>edu.ucsb.cs.rpc-evaluator</groupId>
                 <artifactId>rpc-soap-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>edu.ucsb.cs.rpc-evaluator</groupId>
+                <artifactId>rpc-thrift</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
