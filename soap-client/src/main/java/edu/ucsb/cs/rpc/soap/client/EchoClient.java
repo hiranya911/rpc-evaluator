@@ -9,6 +9,9 @@ import org.apache.axis2.AxisFault;
 import org.apache.axis2.databinding.types.UnsignedShort;
 
 import javax.activation.DataHandler;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.rmi.RemoteException;
 import java.util.Arrays;
 import java.util.Map;
@@ -221,6 +224,31 @@ public class EchoClient implements Client {
 
         if (response == null) {
             t = new RPCEvaluatorException("Invalid echo response");
+        } else {
+            InputStream in = null;
+            try {
+                in = response.get_return().getInputStream();
+                byte[] data = new byte[10240];
+                int len;
+                ByteArrayOutputStream out = new ByteArrayOutputStream();
+                while ((len = in.read(data)) != -1) {
+                    out.write(data, 0, len);
+                }
+                byte[] output = out.toByteArray();
+                if (!Arrays.equals(blob, output)) {
+                    t = new RPCEvaluatorException("Invalid echo response");
+                }
+            } catch (IOException e) {
+                t = new RPCEvaluatorException("I/O error while reading response", e);
+            } finally {
+                try {
+                    if (in != null) {
+                        in.close();
+                    }
+                } catch (IOException e) {
+                    // ignore
+                }
+            }
         }
         return report(start, end, t);
     }

@@ -10,8 +10,8 @@ import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 
-import java.util.Map;
-import java.util.Properties;
+import java.nio.ByteBuffer;
+import java.util.*;
 
 public class EchoClient implements Client {
 
@@ -84,26 +84,115 @@ public class EchoClient implements Client {
 
     @Override
     public InvocationResult echoInt(int i) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        Throwable t = null;
+        int response = -1;
+
+        long start = System.currentTimeMillis();
+        try {
+            response = client.echoInt(i);
+        } catch (TException e) {
+            t = e;
+        }
+        long end = System.currentTimeMillis();
+        if (i != response) {
+            t = new RPCEvaluatorException("Invalid echo response");
+        }
+        return report(start, end, t);
     }
 
     @Override
     public InvocationResult echoArray(int[] array) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        Throwable t = null;
+        List<Integer> response = null;
+
+        long start = System.currentTimeMillis();
+        List<Integer> list = new ArrayList<Integer>();
+        for (int i : array) {
+            list.add(i);
+        }
+        try {
+            response = client.echoArray(list);
+        } catch (TException e) {
+            t = e;
+        }
+        long end = System.currentTimeMillis();
+        if (response == null || !Arrays.equals(list.toArray(new Integer[list.size()]),
+                response.toArray(new Integer[response.size()]))) {
+            t = new RPCEvaluatorException("Invalid echo response");
+        }
+        return report(start, end, t);
     }
 
     @Override
     public InvocationResult echoObject(DataObject o) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        edu.ucsb.cs.rpc.thrift.DataObject obj = new edu.ucsb.cs.rpc.thrift.DataObject(
+                o.getString(), o.getInteger(), o.getDecimal(), (byte) o.getCharacter());
+        Throwable t = null;
+        edu.ucsb.cs.rpc.thrift.DataObject response = null;
+
+        long start = System.currentTimeMillis();
+        try {
+            response = client.echoObject(obj);
+        } catch (TException e) {
+            t = e;
+        }
+        long end = System.currentTimeMillis();
+        if (response == null) {
+            t = new RPCEvaluatorException("Invalid echo response");
+        } else if (!response.getStr().equals(o.getString()) ||
+                    response.getNumber() != o.getInteger() ||
+                    response.getDecimal() != o.getDecimal() ||
+                    response.getCharacter() != (byte) o.getCharacter()) {
+                t = new RPCEvaluatorException("Invalid echo response");
+        }
+        return report(start, end, t);
     }
 
     @Override
     public InvocationResult echoMap(Map<Integer, Integer> map) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        Throwable t = null;
+        Map<Integer,Integer> response = null;
+
+        long start = System.currentTimeMillis();
+        try {
+            response = client.echoMap(map);
+        } catch (TException e) {
+            t = e;
+        }
+        long end = System.currentTimeMillis();
+        if (response == null || !equalMaps(map, response)) {
+            t = new RPCEvaluatorException("Invalid echo response");
+        }
+        return report(start, end, t);
     }
 
     @Override
     public InvocationResult echoBlob(byte[] blob) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        Throwable t = null;
+        ByteBuffer response = null;
+
+        long start = System.currentTimeMillis();
+        try {
+            response = client.echoBlob(ByteBuffer.wrap(blob));
+        } catch (TException e) {
+            t = e;
+        }
+        long end = System.currentTimeMillis();
+        if (response == null || !Arrays.equals(blob, response.array())) {
+            t = new RPCEvaluatorException("Invalid echo response");
+        }
+        return report(start, end, t);
+    }
+
+    boolean equalMaps(Map<Integer,Integer> m1, Map<Integer,Integer> m2) {
+        if (m1.size() != m2.size()) {
+            return false;
+        }
+        for (Map.Entry<Integer,Integer> entry : m1.entrySet()) {
+            if (!m2.containsKey(entry.getKey()) || m2.get(entry.getKey()) != entry.getValue()) {
+                return false;
+            }
+        }
+        return true;
     }
 }

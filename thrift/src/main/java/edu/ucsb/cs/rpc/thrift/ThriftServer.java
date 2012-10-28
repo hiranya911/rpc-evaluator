@@ -12,7 +12,6 @@ public class ThriftServer {
         if (args.length == 1) {
             port = Integer.parseInt(args[0]);
         }
-        System.out.println("Starting Thrift server on port: " + port);
         try {
             EchoServiceHandler handler = new EchoServiceHandler();
             EchoService.Processor<EchoServiceHandler> processor =
@@ -20,6 +19,7 @@ public class ThriftServer {
             TServerTransport serverTransport = new TServerSocket(port);
             TServer server = new TThreadPoolServer(new TThreadPoolServer.Args(
                     serverTransport).processor(processor));
+            System.out.println("Starting Thrift server on port: " + port);
             server.serve();
         } catch (Exception e) {
             e.printStackTrace();
