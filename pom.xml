@@ -15,6 +15,8 @@
         <module>soap-client</module>
         <module>distribution</module>
         <module>thrift</module>
+        <module>rpc-rmi-service</module>
+        <module>rpc-rmi-client</module>
     </modules>
 
     <repositories>
@@ -110,6 +112,16 @@
             <dependency>
                 <groupId>edu.ucsb.cs.rpc-evaluator</groupId>
                 <artifactId>rpc-thrift</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>edu.ucsb.cs.rpc-evaluator</groupId>
+                <artifactId>rpc-rmi-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>edu.ucsb.cs.rpc-evaluator</groupId>
+                <artifactId>rpc-rmi-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

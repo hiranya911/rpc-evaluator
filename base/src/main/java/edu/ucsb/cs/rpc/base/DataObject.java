@@ -1,6 +1,8 @@
 package edu.ucsb.cs.rpc.base;
 
-public class DataObject {
+import java.io.Serializable;
+
+public class DataObject implements Serializable {
 
     private String string;
     private int integer;

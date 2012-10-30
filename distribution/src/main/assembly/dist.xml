@@ -21,6 +21,11 @@
             <outputDirectory>rpc-evaluator-${project.version}/bin</outputDirectory>
             <fileMode>775</fileMode>
         </file>
+        <file>
+            <source>src/main/assembly/rmi-server.sh</source>
+            <outputDirectory>rpc-evaluator-${project.version}/bin</outputDirectory>
+            <fileMode>775</fileMode>
+        </file>
     </files>
     <dependencySets>
         <dependencySet>

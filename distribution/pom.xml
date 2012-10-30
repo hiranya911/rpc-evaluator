@@ -54,6 +54,14 @@
             <groupId>edu.ucsb.cs.rpc-evaluator</groupId>
             <artifactId>rpc-thrift</artifactId>
         </dependency>
+        <dependency>
+            <groupId>edu.ucsb.cs.rpc-evaluator</groupId>
+            <artifactId>rpc-rmi-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>edu.ucsb.cs.rpc-evaluator</groupId>
+            <artifactId>rpc-rmi-client</artifactId>
+        </dependency>
 
         <!-- SOAP/Axis2 Dependencies -->
         <dependency>

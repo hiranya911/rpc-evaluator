@@ -12,21 +12,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>wsdl4j</groupId>
-            <artifactId>wsdl4j</artifactId>
-        </dependency>
-        <dependency>
             <groupId>edu.ucsb.cs.rpc-evaluator</groupId>
             <artifactId>rpc-base</artifactId>
         </dependency>
         <dependency>
         	<groupId>edu.ucsb.cs.rpc-evaluator</groupId>
         	<artifactId>rpc-rmi-service</artifactId>
-        	<version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>

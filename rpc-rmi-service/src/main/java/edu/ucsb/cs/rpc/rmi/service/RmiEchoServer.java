@@ -34,8 +34,9 @@ public class RmiEchoServer implements Echo {
 			name = args[0];
 		if (args.length > 1)
 			port = Integer.parseInt(args[1]);*/
-		
-		System.setProperty("java.rmi.server.codebase", Echo.class.getProtectionDomain().getCodeSource().getLocation().toString());
+
+        System.setProperty("java.rmi.server.codebase", Echo.class.getProtectionDomain().getCodeSource().getLocation().toString() +
+                " " + DataObject.class.getProtectionDomain().getCodeSource().getLocation().toString());
 		try {
             File tempFile = File.createTempFile("rmi-base", ".policy");
             InputStream is = ClassLoader.getSystemResourceAsStream(POLICY_FILE_NAME);

@@ -20,7 +20,7 @@ import java.util.Properties;
 
 public class EchoClient implements Client {
 
-    public static final String SERVICE_ENDPOINT = "Service.Endpoint";
+    public static final String RMI_ENDPOINT = "RMI.Endpoint";
     public static final String RMI_REGISTRY_NAME = "Echo";
     public static final String POLICY_FILE_NAME = "allow_all.policy";
 
@@ -41,9 +41,9 @@ public class EchoClient implements Client {
     @Override
     public void init(Properties properties) throws RPCEvaluatorException {
         //String endpoint = "localhost";
-    	String endpoint = properties.getProperty(SERVICE_ENDPOINT);
+    	String endpoint = properties.getProperty(RMI_ENDPOINT);
         if (endpoint == null || "".equals(endpoint)) {
-            throw new RPCEvaluatorException("Service.Endpoint parameter not specified");
+            throw new RPCEvaluatorException("RMI.Endpoint parameter not specified");
         }
         try {
     		System.setProperty("java.rmi.server.codebase", Echo.class.getProtectionDomain().getCodeSource().getLocation().toString());
