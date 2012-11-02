@@ -9,31 +9,31 @@ public class RPCEvaluationResult {
     private long totalInvocations;
     private long successfulInvocations;
     private long failedInvocations;
-    private long totalSuccessLatency;
-    private long totalFailureLatency;
     private long totalLatency;
-    private long minSuccessLatency = Long.MAX_VALUE;
-    private long maxSuccessLatency = Long.MIN_VALUE;
-    private long minFailureLatency = Long.MAX_VALUE;
-    private long maxFailureLatency = Long.MIN_VALUE;
+    private long minLatency = Long.MAX_VALUE;
+    private long maxLatency = Long.MIN_VALUE;
+    private double latencyVariance;
 
     public RPCEvaluationResult(Collection<InvocationResult> results, long start, long end) {
         for (InvocationResult result : results) {
             if (result.isSuccess()) {
                 successfulInvocations++;
-                totalSuccessLatency += result.getLatency();
-                minSuccessLatency = Math.min(minSuccessLatency, result.getLatency());
-                maxSuccessLatency = Math.max(maxSuccessLatency, result.getLatency());
             } else {
                 failedInvocations++;
-                totalFailureLatency += result.getLatency();
-                minFailureLatency = Math.min(minFailureLatency, result.getLatency());
-                maxFailureLatency = Math.max(maxFailureLatency, result.getLatency());
             }
+            minLatency = Math.min(minLatency, result.getLatency());
+            maxLatency = Math.max(maxLatency, result.getLatency());
+            totalLatency += result.getLatency();
         }
         duration = end - start;
         totalInvocations = successfulInvocations + failedInvocations;
-        totalLatency = totalSuccessLatency + totalFailureLatency;
+
+        double mean = (double) totalLatency / totalInvocations;
+        double temp = 0;
+        for (InvocationResult result : results) {
+            temp += (mean - result.getLatency())*(mean - result.getLatency());
+        }
+        latencyVariance = temp/totalInvocations;
     }
 
     public long getDuration() {
@@ -52,32 +52,20 @@ public class RPCEvaluationResult {
         return failedInvocations;
     }
 
-    public long getTotalSuccessLatency() {
-        return totalSuccessLatency;
-    }
-
-    public long getTotalFailureLatency() {
-        return totalFailureLatency;
-    }
-
-    public long getMinSuccessLatency() {
-        return minSuccessLatency;
-    }
-
-    public long getMaxSuccessLatency() {
-        return maxSuccessLatency;
-    }
-
-    public long getMinFailureLatency() {
-        return minFailureLatency;
-    }
-
-    public long getMaxFailureLatency() {
-        return maxFailureLatency;
-    }
-
     public long getTotalLatency() {
         return totalLatency;
+    }
+
+    public long getMinLatency() {
+        return minLatency;
+    }
+
+    public long getMaxLatency() {
+        return maxLatency;
+    }
+
+    public double getLatencyVariance() {
+        return latencyVariance;
     }
 
     private String formatDecimal(double number) {
@@ -93,49 +81,29 @@ public class RPCEvaluationResult {
                 .append("Failed invocations: ").append(failedInvocations).append("\n")
                 .append("Success rate: ")
                 .append(formatDecimal(successfulInvocations * 100.0 / totalInvocations))
-                .append("%\n");
-
-        if (totalSuccessLatency > 0) {
-            builder.append("Successful invocation throughput: ")
-                    .append(formatDecimal(successfulInvocations / (totalSuccessLatency / 1000.0)))
-                    .append(" TPS\n");
-        }
-        if (totalFailureLatency > 0) {
-            builder.append("Failed invocation throughput: ")
-                    .append(formatDecimal(failedInvocations / (totalFailureLatency / 1000.0)))
-                    .append(" TPS\n");
-        }
-
-        builder.append("Overall invocation throughput: ")
-                .append(
-                        formatDecimal(totalInvocations / (totalLatency / 1000.0)))
+                .append("%\n")
+                .append("Average RPC throughput: ")
+                .append(formatDecimal(totalInvocations / (totalLatency / 1000.0)))
                 .append(" TPS\n")
-                .append("Application throughput: ")
+                .append("Average application throughput: ")
                 .append(formatDecimal(totalInvocations / (duration / 1000.0)))
-                .append(" TPS\n");
-
-        if (successfulInvocations > 0) {
-            builder.append("Successful invocation latency: ")
-                    .append(formatDecimal((double) totalSuccessLatency / successfulInvocations))
-                    .append(" ms\n")
-                    .append("Minimum successful invocation latency: ")
-                    .append(minSuccessLatency).append(" ms\n")
-                    .append("Maximum success invocation latency: ")
-                    .append(maxSuccessLatency).append(" ms\n");
-        }
-        if (failedInvocations > 0) {
-            builder.append("Failed invocation latency: ")
-                    .append(formatDecimal((double) totalFailureLatency / failedInvocations))
-                    .append(" ms\n")
-                    .append("Minimum failed invocation latency: ")
-                    .append(minFailureLatency).append(" ms\n")
-                    .append("Maximum failed invocation latency: ")
-                    .append(maxFailureLatency).append(" ms\n");
-        }
-        builder.append("Overall invocation latency: ")
+                .append(" TPS\n")
+                .append("Average RPC latency: ")
                 .append(formatDecimal((double) totalLatency / totalInvocations))
                 .append(" ms\n")
-                .append("Application latency: ")
+                .append("Minimum RPC latency: ")
+                .append(formatDecimal(minLatency))
+                .append(" ms\n")
+                .append("Maximum RPC latency: ")
+                .append(formatDecimal(maxLatency))
+                .append(" ms\n")
+                .append("RPC latency variance: ")
+                .append(formatDecimal(latencyVariance))
+                .append("\n")
+                .append("RPC latency std dev: ")
+                .append(formatDecimal(Math.sqrt(latencyVariance)))
+                .append("\n")
+                .append("Average Application latency: ")
                 .append(formatDecimal((double) duration / totalInvocations))
                 .append(" ms\n");
         return builder.toString();
