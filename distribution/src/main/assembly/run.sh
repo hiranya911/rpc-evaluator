@@ -24,4 +24,4 @@ do
     RPC_TEST_CLASSPATH=$RPC_TEST_CLASSPATH:$f
 done
 
-java -classpath $RPC_TEST_CLASSPATH edu.ucsb.cs.rpc.base.Main -f ../conf/rpc.properties $*
+java -Djava.security.policy=../conf/client.policy -classpath $RPC_TEST_CLASSPATH edu.ucsb.cs.rpc.base.Main -f ../conf/rpc.properties $*

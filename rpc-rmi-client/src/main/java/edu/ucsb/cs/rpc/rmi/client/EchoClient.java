@@ -25,6 +25,8 @@ public class EchoClient implements Client {
     public static final String POLICY_FILE_NAME = "allow_all.policy";
 
 	private Echo echo;
+	private String rmiName;
+	File tempFile;
 
 	/*public static void main(String[] args)
 	{
@@ -41,6 +43,8 @@ public class EchoClient implements Client {
     @Override
     public void init(Properties properties) throws RPCEvaluatorException {
         //String endpoint = "localhost";
+    	rmiName = RMI_REGISTRY_NAME;
+    	tempFile = null;
     	String endpoint = properties.getProperty(RMI_ENDPOINT);
         if (endpoint == null || "".equals(endpoint)) {
             throw new RPCEvaluatorException("RMI.Endpoint parameter not specified");
@@ -48,27 +52,52 @@ public class EchoClient implements Client {
         try {
     		System.setProperty("java.rmi.server.codebase", Echo.class.getProtectionDomain().getCodeSource().getLocation().toString());
     		
+    		if (System.getProperty("java.rmi.server.codebase") == null)
+    			System.setProperty("java.rmi.server.codebase", Echo.class.getProtectionDomain().getCodeSource().getLocation().toString());
+    		
     		try {
-                File tempFile = File.createTempFile("rmi-base", ".policy");
-                InputStream is = ClassLoader.getSystemResourceAsStream(POLICY_FILE_NAME);
-                BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-                int read = 0;
-                while((read = is.read()) != -1) {
-                    writer.write(read);
-                }
-                writer.close();
-                tempFile.deleteOnExit();
-                System.setProperty("java.security.policy",tempFile.getAbsolutePath());
+    			if (System.getProperty("java.security.policy") == null)
+    			{
+    				tempFile = File.createTempFile("rmi-base", ".policy");
+    	            InputStream is = ClassLoader.getSystemResourceAsStream(POLICY_FILE_NAME);
+    	            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+    	            int read = 0;
+    	            while((read = is.read()) != -1) {
+    	                writer.write(read);
+    	            }
+    	            writer.close();
+    	            tempFile.deleteOnExit();
+    	            System.setProperty("java.security.policy",tempFile.getAbsolutePath());
+    	            
+    	            Runtime.getRuntime().addShutdownHook(new Thread() {
+    	    			public void run() {
+    	    				if (tempFile != null)
+    	    				{
+    	    					try 
+    	    					{
+    	    						if (tempFile != null)
+    	    							tempFile.delete();
+    	    					}
+    	    					catch (Exception e)
+    	    					{
+    	    						
+    	    					}
+    	    					System.out.println("EchoEngine terminated");
+    	    				}
+    	    			}
+    	    		});
+    			}
             }
             catch(IOException e) {
                 throw new RuntimeException(e);
             }
     		
+    	
     		if (System.getSecurityManager() == null)
     			System.setSecurityManager(new SecurityManager());
     	
     			Registry registry = LocateRegistry.getRegistry(endpoint);
-    			echo = (Echo)registry.lookup(RMI_REGISTRY_NAME);
+    			echo = (Echo)registry.lookup(rmiName);
         } catch (Exception ex) {
             throw new RPCEvaluatorException("Error while initializing RMI client", ex);
         }
