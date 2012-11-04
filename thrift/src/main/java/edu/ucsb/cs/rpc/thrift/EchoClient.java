@@ -29,7 +29,7 @@ public class EchoClient implements Client {
             throw new RPCEvaluatorException("Required Thrift settings not provided");
         }
         try {
-            transport = new TSocket("localhost", 9090);
+            transport = new TSocket(host, Integer.parseInt(port));
             transport.open();
             TProtocol protocol = new TBinaryProtocol(transport);
             client = new EchoService.Client(protocol);

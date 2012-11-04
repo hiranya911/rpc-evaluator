@@ -12,10 +12,10 @@ public class TestRPCEvaluation extends TestCase {
         assertEquals(5, result.getSuccessfulInvocations());
         assertEquals(0, result.getFailedInvocations());
         assertEquals(5 * 10, client.getTotalLength());
-        assertEquals(100 * 5, result.getTotalSuccessLatency());
-        assertEquals(0, result.getTotalFailureLatency());
-        assertEquals(100, result.getMaxSuccessLatency());
-        assertEquals(100, result.getMinSuccessLatency());
+        assertEquals(100 * 5, result.getTotalLatency());
+        assertEquals(100, result.getMaxLatency());
+        assertEquals(100, result.getMinLatency());
+        assertEquals(0.0, result.getLatencyVariance());
         System.out.println(result);
     }
 
