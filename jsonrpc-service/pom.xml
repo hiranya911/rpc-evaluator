@@ -26,6 +26,17 @@
 			<layout>default</layout>
 		</repository>
 	</repositories>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 	<dependencies>
 		<dependency>
 			<groupId>com.googlecode</groupId>
@@ -67,7 +78,4 @@
 
 
 	</dependencies>
-	<build>
-        <finalName>json</finalName>
-	</build>
 </project>

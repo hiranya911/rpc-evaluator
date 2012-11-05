@@ -1,0 +1,23 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0"
+         metadata-complete="true">
+
+    <description>
+        Servlet and JSP Examples.
+    </description>
+    <display-name>Thrift Echo Servlet</display-name>
+
+    <servlet>
+        <servlet-name>JSONServlet</servlet-name>
+        <servlet-class>JsonServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>JSONServlet</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
+
+</web-app>

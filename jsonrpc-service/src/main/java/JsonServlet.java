@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.googlecode.jsonrpc4j.JsonRpcServer;
 import edu.ucsb.cs.rpc.base.Server;
 
-class JsonServlet extends HttpServlet {
+public class JsonServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = -4390171626730974139L;
 	private JsonRpcServer jsonRpcServer;

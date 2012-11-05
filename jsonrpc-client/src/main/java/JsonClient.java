@@ -17,24 +17,23 @@ public class JsonClient implements Client {
 	
 	private JsonRpcHttpClient client;
 	private Server serverService;
-	/*
+
 	public static void main(String[] args) {
 		JsonClient jsonClient = new JsonClient();
 		
 		try {
 			jsonClient.init(null);
-			jsonClient.echoString("JABA");
+			System.out.println(jsonClient.echoInt(100));
 		} catch (RPCEvaluatorException e) {
 			e.printStackTrace();
 		}
 	}
-	*/
 	
 	
 	@Override
 	public void init(Properties properties) throws RPCEvaluatorException {
 		try {
-			client = new JsonRpcHttpClient(new URL("http://localhost:8080/json"));
+			client = new JsonRpcHttpClient(new URL("http://localhost:8080/json-rpc-server-1.0"));
 			serverService = ProxyUtil.createClientProxy(
 				    getClass().getClassLoader(),
 				    Server.class,

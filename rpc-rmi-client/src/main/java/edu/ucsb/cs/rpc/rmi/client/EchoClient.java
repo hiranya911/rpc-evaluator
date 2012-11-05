@@ -144,7 +144,7 @@ public class EchoClient implements Client {
         }
         long end = System.currentTimeMillis();
 
-        if (response == null || !response.equals(s)) {
+        if (t == null && (response == null || !response.equals(s))) {
             t = new RPCEvaluatorException("Invalid echo response");
         }
         return report(start, end, t);
