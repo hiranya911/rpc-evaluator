@@ -19,7 +19,78 @@ public class RmiEchoServer implements Echo {
 	
     public static final String RMI_REGISTRY_NAME = "Echo";
     public static final String POLICY_FILE_NAME = "allow_all.policy";
+    File tempFile;
+    String rmiName;
     
+    public RmiEchoServer()
+    {
+    	tempFile = null;
+    	rmiName = "Echo";
+		int port = 0; //12035 or 1099
+		/*if (args.length > 0)
+			name = args[0];
+		if (args.length > 1)
+			port = Integer.parseInt(args[1]);*/
+
+		if (System.getProperty("java.rmi.server.codebase") == null)
+			System.setProperty("java.rmi.server.codebase", Echo.class.getProtectionDomain().getCodeSource().getLocation().toString() +
+					" " + DataObject.class.getProtectionDomain().getCodeSource().getLocation().toString());
+		try {
+			if (System.getProperty("java.security.policy") == null)
+			{
+				tempFile = File.createTempFile("rmi-base", ".policy");
+	            InputStream is = ClassLoader.getSystemResourceAsStream(POLICY_FILE_NAME);
+	            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+	            int read = 0;
+	            while((read = is.read()) != -1) {
+	                writer.write(read);
+	            }
+	            writer.close();
+	            tempFile.deleteOnExit();
+	            System.setProperty("java.security.policy",tempFile.getAbsolutePath());
+			}
+        }
+        catch(IOException e) {
+            throw new RuntimeException(e);
+        }
+		
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+			public void run() {
+				try 
+				{
+					if (tempFile != null)
+						tempFile.delete();
+				}
+				catch (Exception e)
+				{
+					
+				}
+				try
+				{
+					Registry registry = LocateRegistry.getRegistry();
+					registry.unbind(rmiName);
+				}
+				catch (Exception e)
+				{
+				
+				}
+				System.out.println("EchoEngine terminated");
+			}
+		});
+		
+		if (System.getSecurityManager() == null)
+			System.setSecurityManager(new SecurityManager());
+		try {
+			Echo stub = (Echo)UnicastRemoteObject.exportObject((Echo)this, port);
+			Registry registry = LocateRegistry.getRegistry();
+			registry.rebind(rmiName, stub);
+			System.out.println("EchoEngine Bound");
+		}
+		catch (Exception e) {
+			System.err.println("EchoEngine exception");
+			e.printStackTrace();
+		}
+    }
     
 	/**
 	 * Start up an RMI Echo server for testing rpc
@@ -28,44 +99,7 @@ public class RmiEchoServer implements Echo {
 	 */
 	public static void main(String[] args)
 	{
-		String name = "Echo";
-		int port = 0; //12035 or 1099
-		/*if (args.length > 0)
-			name = args[0];
-		if (args.length > 1)
-			port = Integer.parseInt(args[1]);*/
-
-        System.setProperty("java.rmi.server.codebase", Echo.class.getProtectionDomain().getCodeSource().getLocation().toString() +
-                " " + DataObject.class.getProtectionDomain().getCodeSource().getLocation().toString());
-		try {
-            File tempFile = File.createTempFile("rmi-base", ".policy");
-            InputStream is = ClassLoader.getSystemResourceAsStream(POLICY_FILE_NAME);
-            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-            int read = 0;
-            while((read = is.read()) != -1) {
-                writer.write(read);
-            }
-            writer.close();
-            tempFile.deleteOnExit();
-            System.setProperty("java.security.policy",tempFile.getAbsolutePath());
-        }
-        catch(IOException e) {
-            throw new RuntimeException(e);
-        }
-		
-		if (System.getSecurityManager() == null)
-			System.setSecurityManager(new SecurityManager());
-		try {
-			Echo node = new RmiEchoServer();
-			Echo stub = (Echo)UnicastRemoteObject.exportObject(node, port);
-			Registry registry = LocateRegistry.getRegistry();
-			registry.rebind(name, stub);
-			System.out.println("EchoEngine Bound");
-		}
-		catch (Exception e) {
-			System.err.println("EchoEngine exception");
-			e.printStackTrace();
-		}
+		RmiEchoServer node = new RmiEchoServer();
 	}
 	
 	@Override
