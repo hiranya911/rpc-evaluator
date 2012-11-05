@@ -1,0 +1,73 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<groupId>edu.ucsb.cs.rpc-evaluator</groupId>
+		<artifactId>rpc-evaluator</artifactId>
+		<version>1.0</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>edu.ucsb.cs.json-rpc-server</groupId>
+	<packaging>war</packaging>
+	<artifactId>json-rpc-server</artifactId>
+	<name>json-rpc-server</name>
+	<description>ldksdf</description>
+	<repositories>
+		<repository>
+			<id>jsonrpc4j-webdav-maven-repo</id>
+			<name>jsonrpc4j maven repository</name>
+			<url>http://jsonrpc4j.googlecode.com/svn/maven/repo/</url>
+			<layout>default</layout>
+		</repository>
+		<repository>
+			<id>apache-tomcat-maven-repo</id>
+			<name>Apache tomcat</name>
+			<url>http://repo2.maven.org/maven2/org/apache/tomcat/</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+	<dependencies>
+		<dependency>
+			<groupId>com.googlecode</groupId>
+			<artifactId>jsonrpc4j</artifactId>
+			<version>0.25</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+		<!-- optional, add if using jackon's annotations -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.portlet</groupId>
+			<artifactId>portlet-api</artifactId>
+			<version>2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucsb.cs.rpc-evaluator</groupId>
+			<artifactId>rpc-base</artifactId>
+		</dependency>
+
+
+	</dependencies>
+	<build>
+        <finalName>json</finalName>
+	</build>
+</project>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file was auto-generated from WSDL -->
+<!-- by the Apache Axis2 version: 1.7.0-SNAPSHOT  Built on : Oct 22, 2012 (01:35:57 GMT) -->
+<serviceGroup>
+    <service name="EchoService">
+        <messageReceivers>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="edu.ucsb.cs.rpc.soap.service.EchoServiceMessageReceiverInOut"/>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-only" class="edu.ucsb.cs.rpc.soap.service.EchoServiceMessageReceiverInOnly"/>
+        </messageReceivers>
+        <parameter name="ServiceClass">edu.ucsb.cs.rpc.soap.service.EchoServiceSkeleton</parameter>
+        <parameter name="useOriginalwsdl">true</parameter>
+        <parameter name="modifyUserWSDLPortAddress">true</parameter>
+        <operation name="echoObject" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://base.rpc.cs.ucsb.edu">
+            <actionMapping>urn:echoObject</actionMapping>
+            <outputActionMapping>urn:echoObjectResponse</outputActionMapping>
+        </operation>
+        <operation name="echoBlob" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://base.rpc.cs.ucsb.edu">
+            <actionMapping>urn:echoBlob</actionMapping>
+            <outputActionMapping>urn:echoBlobResponse</outputActionMapping>
+        </operation>
+        <operation name="echoMap" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://base.rpc.cs.ucsb.edu">
+            <actionMapping>urn:echoMap</actionMapping>
+            <outputActionMapping>urn:echoMapResponse</outputActionMapping>
+        </operation>
+        <operation name="echoInt" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://base.rpc.cs.ucsb.edu">
+            <actionMapping>urn:echoInt</actionMapping>
+            <outputActionMapping>urn:echoIntResponse</outputActionMapping>
+        </operation>
+        <operation name="echoArray" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://base.rpc.cs.ucsb.edu">
+            <actionMapping>urn:echoArray</actionMapping>
+            <outputActionMapping>urn:echoArrayResponse</outputActionMapping>
+        </operation>
+        <operation name="echoString" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://base.rpc.cs.ucsb.edu">
+            <actionMapping>urn:echoString</actionMapping>
+            <outputActionMapping>urn:echoStringResponse</outputActionMapping>
+        </operation>
+        <operation name="doNothing" mep="http://www.w3.org/ns/wsdl/in-only" namespace="http://base.rpc.cs.ucsb.edu">
+            <actionMapping>urn:doNothing</actionMapping>
+        </operation>
+    </service>
+</serviceGroup>
