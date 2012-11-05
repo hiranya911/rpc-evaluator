@@ -1,3 +1,5 @@
+package src.main.java.edu.ucsb.cs.rpc.json.client;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
@@ -90,7 +92,6 @@ public class JsonClient implements Client {
         long end = System.currentTimeMillis();
 
         
-        System.out.println(response);
         if ((response == null || !response.equals(s)) && t == null) {
             t = new RPCEvaluatorException("Invalid echo response");
         }

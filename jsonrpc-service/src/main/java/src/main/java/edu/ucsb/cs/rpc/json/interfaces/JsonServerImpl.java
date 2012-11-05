@@ -1,3 +1,5 @@
+package src.main.java.edu.ucsb.cs.rpc.json.interfaces;
+
 import java.util.Map;
 
 import edu.ucsb.cs.rpc.base.DataObject;
