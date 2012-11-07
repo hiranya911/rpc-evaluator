@@ -8,7 +8,7 @@
     <description>
         Servlet and JSP Examples.
     </description>
-    <display-name>Thrift Echo Servlet</display-name>
+    <display-name>Json-RPC servlet</display-name>
 
     <servlet>
         <servlet-name>JSONServlet</servlet-name>
