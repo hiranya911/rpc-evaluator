@@ -61,6 +61,16 @@
             <groupId>edu.ucsb.cs.rpc-evaluator</groupId>
             <artifactId>rpc-rmi-client</artifactId>
         </dependency>
+        <dependency>
+            <groupId>edu.ucsb.cs.rpc-evaluator</groupId>
+            <artifactId>rpc-protobuf-client</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>edu.ucsb.cs.rpc-evaluator</groupId>
+            <artifactId>rpc-protobuf-client</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <!-- SOAP/Axis2 Dependencies -->
         <dependency>
@@ -99,6 +109,24 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+        </dependency>
+        
+        <!-- protobuf Dependencies -->
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>2.4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty</artifactId>
+            <version>3.4.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.protobuf-rpc-pro</groupId>
+            <artifactId>protobuf-rpc-pro-duplex</artifactId>
+            <version>2.0.1</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
 

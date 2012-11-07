@@ -1,0 +1,21 @@
+option java_generic_services = true;
+
+option java_package = "edu.ucsb.cs.rpc.protobuf";
+option java_outer_classname = "Echo";
+
+message NothingMessage {
+}
+
+message EchoString {
+    required string data = 1;
+}
+
+message EchoInt {
+    required int32 data = 1;
+}
+
+service EchoService {
+	rpc doNothing(NothingMessage) returns (NothingMessage);
+    rpc echoString(EchoString) returns (EchoString);
+    rpc echoInt(EchoInt) returns (EchoInt);
+}
