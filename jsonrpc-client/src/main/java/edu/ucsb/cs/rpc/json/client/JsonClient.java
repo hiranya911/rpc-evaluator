@@ -1,11 +1,9 @@
-package src.main.java.edu.ucsb.cs.rpc.json.client;
+package edu.ucsb.cs.rpc.json.client;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Random;
 
 import com.googlecode.jsonrpc4j.JsonRpcHttpClient;
 import com.googlecode.jsonrpc4j.ProxyUtil;
@@ -19,19 +17,11 @@ import edu.ucsb.cs.rpc.base.Server;
 
 public class JsonClient implements Client {
 	
+	public static final String JSON_ENDPOINT = "json.Endpoint";
 	private JsonRpcHttpClient client;
 	private Server serverService;
-
-	public static String generateString(Random rng, String characters, int length)
-	{
-	    char[] text = new char[length];
-	    for (int i = 0; i < length; i++)
-	    {
-	        text[i] = characters.charAt(rng.nextInt(characters.length()));
-	    }
-	    return new String(text);
-	}
 	
+/*
 	public static void main(String[] args) {
 		JsonClient jsonClient = new JsonClient();
 		
@@ -48,19 +38,24 @@ public class JsonClient implements Client {
 			e.printStackTrace();
 		}
 	}
-	
+*/	
 	
 	@Override
 	public void init(Properties properties) throws RPCEvaluatorException {
+		
+		String endpoint = properties.getProperty(JSON_ENDPOINT);
+        if (endpoint == null || "".equals(endpoint)) {
+            throw new RPCEvaluatorException("JSON.Endpoint parameter not specified");
+        }		
 		try {
-			client = new JsonRpcHttpClient(new URL("http://localhost:8080/json-rpc-server-1.0"));
+			client = new JsonRpcHttpClient(new URL(endpoint));
 			serverService = ProxyUtil.createClientProxy(
 				    getClass().getClassLoader(),
 				    Server.class,
 				    client);
 			
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			throw new RPCEvaluatorException("Malformed URL: " + endpoint, e);
 		}
 	}
 	

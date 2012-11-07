@@ -1,4 +1,4 @@
-package src.main.java.edu.ucsb.cs.rpc.json.interfaces;
+package edu.ucsb.cs.rpc.json.interfaces;
 
 import java.util.Map;
 
