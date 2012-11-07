@@ -1,4 +1,4 @@
-package src.main.java.edu.ucsb.cs.rpc.json.service;
+package edu.ucsb.cs.rpc.json.service;
 
 import java.io.*;
 
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import src.main.java.edu.ucsb.cs.rpc.json.interfaces.JsonServerImpl;
+import edu.ucsb.cs.rpc.json.interfaces.JsonServerImpl;
 
 import com.googlecode.jsonrpc4j.JsonRpcServer;
 import edu.ucsb.cs.rpc.base.Server;
