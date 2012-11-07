@@ -14,31 +14,12 @@ import edu.ucsb.cs.rpc.base.InvocationResult;
 import edu.ucsb.cs.rpc.base.RPCEvaluatorException;
 import edu.ucsb.cs.rpc.base.Server;
 
-
 public class JsonClient implements Client {
 	
-	public static final String JSON_ENDPOINT = "json.Endpoint";
+	public static final String JSON_ENDPOINT = "JSON.Endpoint";
+
 	private JsonRpcHttpClient client;
 	private Server serverService;
-	
-/*
-	public static void main(String[] args) {
-		JsonClient jsonClient = new JsonClient();
-		
-		try {
-			jsonClient.init(null);
-			
-			HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-			map.put(23, 45);
-			map.put(1, 99);
-			map.put(42, 9695965);
-			
-			System.out.println(jsonClient.echoMap(map).getLatency());
-		} catch (RPCEvaluatorException e) {
-			e.printStackTrace();
-		}
-	}
-*/	
 	
 	@Override
 	public void init(Properties properties) throws RPCEvaluatorException {
@@ -69,7 +50,7 @@ public class JsonClient implements Client {
 
 	@Override
 	public void destroy() {
-		
+
 	}
 
 	@Override

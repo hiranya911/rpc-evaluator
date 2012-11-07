@@ -12,7 +12,7 @@
 
     <servlet>
         <servlet-name>JSONServlet</servlet-name>
-        <servlet-class>JsonServlet</servlet-class>
+        <servlet-class>edu.ucsb.cs.rpc.json.service.JsonServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
