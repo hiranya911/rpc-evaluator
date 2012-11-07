@@ -1,7 +1,11 @@
+package src.main.java.edu.ucsb.cs.rpc.json.client;
+
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Random;
 
 import com.googlecode.jsonrpc4j.JsonRpcHttpClient;
 import com.googlecode.jsonrpc4j.ProxyUtil;
@@ -18,12 +22,28 @@ public class JsonClient implements Client {
 	private JsonRpcHttpClient client;
 	private Server serverService;
 
+	public static String generateString(Random rng, String characters, int length)
+	{
+	    char[] text = new char[length];
+	    for (int i = 0; i < length; i++)
+	    {
+	        text[i] = characters.charAt(rng.nextInt(characters.length()));
+	    }
+	    return new String(text);
+	}
+	
 	public static void main(String[] args) {
 		JsonClient jsonClient = new JsonClient();
 		
 		try {
 			jsonClient.init(null);
-			System.out.println(jsonClient.echoInt(100));
+			
+			HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+			map.put(23, 45);
+			map.put(1, 99);
+			map.put(42, 9695965);
+			
+			System.out.println(jsonClient.echoMap(map).getLatency());
 		} catch (RPCEvaluatorException e) {
 			e.printStackTrace();
 		}
@@ -42,8 +62,6 @@ public class JsonClient implements Client {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-
-		
 	}
 	
 	private InvocationResult report(long start, long end, Throwable t) {
@@ -90,7 +108,6 @@ public class JsonClient implements Client {
         long end = System.currentTimeMillis();
 
         
-        System.out.println(response);
         if ((response == null || !response.equals(s)) && t == null) {
             t = new RPCEvaluatorException("Invalid echo response");
         }
