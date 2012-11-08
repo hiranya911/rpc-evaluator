@@ -42,12 +42,14 @@ public class Constants {
     public static final String[] CLIENTS = {
             "soap",
             "thrift",
-            "rmi"
+            "rmi",
+            "json"
     };
 
     public static final String[] CLIENT_API_NAMES = {
             "edu.ucsb.cs.rpc.soap.client.EchoClient",
             "edu.ucsb.cs.rpc.thrift.EchoClient",
-            "edu.ucsb.cs.rpc.rmi.client.EchoClient"
+            "edu.ucsb.cs.rpc.rmi.client.EchoClient",
+            "edu.ucsb.cs.rpc.json.client.JsonClient"
     };
 }

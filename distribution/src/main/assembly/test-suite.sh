@@ -13,7 +13,7 @@ export PATH=$JAVA_HOME/bin:$PATH
 java_ver=`java -version`
 echo "Using Java Version: ${java_ver}"
 
-for size in 0 100 1024 10240 102400 1048576
+for size in 0 100 1024 10240 51200 102400 1048576
 do
     if [ ${size} == "0" ]; then
         echo "Invoking doNothing operation"
