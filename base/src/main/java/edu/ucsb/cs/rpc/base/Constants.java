@@ -43,13 +43,15 @@ public class Constants {
             "soap",
             "thrift",
             "rmi",
-            "json"
+            "json",
+            "protobuf"
     };
 
     public static final String[] CLIENT_API_NAMES = {
             "edu.ucsb.cs.rpc.soap.client.EchoClient",
             "edu.ucsb.cs.rpc.thrift.EchoClient",
             "edu.ucsb.cs.rpc.rmi.client.EchoClient",
-            "edu.ucsb.cs.rpc.json.client.JsonClient"
+            "edu.ucsb.cs.rpc.json.client.JsonClient",
+            "edu.ucsb.cs.rpc.protobuf.client.EchoClient"
     };
 }
