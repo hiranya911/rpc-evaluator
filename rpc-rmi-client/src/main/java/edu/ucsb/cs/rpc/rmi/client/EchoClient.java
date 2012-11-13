@@ -163,7 +163,7 @@ public class EchoClient implements Client {
         }
         long end = System.currentTimeMillis();
 
-        if (response != i) {
+        if (t == null && (response != i)) {
             t = new RPCEvaluatorException("Invalid echo response");
         }
         return report(start, end, t);
@@ -182,7 +182,7 @@ public class EchoClient implements Client {
         }
         long end = System.currentTimeMillis();
 
-        if (response == null) { //TODO compare
+        if (t == null && response == null) { //TODO compare
             t = new RPCEvaluatorException("Invalid echo response");
         }
         return report(start, end, t);
@@ -201,7 +201,7 @@ public class EchoClient implements Client {
         }
         long end = System.currentTimeMillis();
 
-        if (response == null || !response.equals(o)) {
+        if (t == null && (response == null || !response.equals(o))) {
             t = new RPCEvaluatorException("Invalid echo response");
         }
         return report(start, end, t);
@@ -220,7 +220,7 @@ public class EchoClient implements Client {
         }
         long end = System.currentTimeMillis();
 
-        if (response == null || !response.equals(map)) {
+        if (t == null && (response == null || !response.equals(map))) {
             t = new RPCEvaluatorException("Invalid echo response");
         }
         return report(start, end, t);
@@ -239,7 +239,7 @@ public class EchoClient implements Client {
         }
         long end = System.currentTimeMillis();
 
-        if (response == null) { //TODO compare
+        if (t == null && response == null) { //TODO compare
             t = new RPCEvaluatorException("Invalid echo response");
         }
         return report(start, end, t);
