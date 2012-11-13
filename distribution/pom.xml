@@ -70,16 +70,10 @@
             <groupId>edu.ucsb.cs.rpc-evaluator</groupId>
             <artifactId>rpc-protobuf-service</artifactId>
             <version>${project.version}</version>
-            <artifactId>json-rpc-client</artifactId>
         </dependency>
         <dependency>
             <groupId>edu.ucsb.cs.rpc-evaluator</groupId>
             <artifactId>json-rpc-client</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>edu.ucsb.cs.rpc-evaluator</groupId>
-            <artifactId>json-rpc-server</artifactId>
             <version>${project.version}</version>
         </dependency>
 
