@@ -43,6 +43,7 @@ public class Constants {
             "soap",
             "thrift",
             "rmi",
+            "json",
             "protobuf"
     };
 
@@ -50,6 +51,7 @@ public class Constants {
             "edu.ucsb.cs.rpc.soap.client.EchoClient",
             "edu.ucsb.cs.rpc.thrift.EchoClient",
             "edu.ucsb.cs.rpc.rmi.client.EchoClient",
+            "edu.ucsb.cs.rpc.json.client.JsonClient",
             "edu.ucsb.cs.rpc.protobuf.client.EchoClient"
     };
 }

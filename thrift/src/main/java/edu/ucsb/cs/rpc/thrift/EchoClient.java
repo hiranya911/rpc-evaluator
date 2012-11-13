@@ -4,9 +4,12 @@ import edu.ucsb.cs.rpc.base.Client;
 import edu.ucsb.cs.rpc.base.DataObject;
 import edu.ucsb.cs.rpc.base.InvocationResult;
 import edu.ucsb.cs.rpc.base.RPCEvaluatorException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
+import org.apache.thrift.transport.THttpClient;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 
@@ -17,6 +20,7 @@ public class EchoClient implements Client {
 
     public static final String THRIFT_HOST = "Thrift.Host";
     public static final String THRIFT_PORT = "Thrift.Port";
+    public static final String THRIFT_HTTP_URL = "Thrift.Http.URL";
 
     private TTransport transport;
     private EchoService.Client client;
@@ -25,11 +29,20 @@ public class EchoClient implements Client {
     public void init(Properties properties) throws RPCEvaluatorException {
         String host = properties.getProperty(THRIFT_HOST);
         String port = properties.getProperty(THRIFT_PORT);
-        if (host == null || port == null || "".equals(host) || "".equals(port)) {
-            throw new RPCEvaluatorException("Required Thrift settings not provided");
-        }
+        String url = properties.getProperty(THRIFT_HTTP_URL);
+
         try {
-            transport = new TSocket(host, Integer.parseInt(port));
+            if (host != null && port != null) {
+                System.out.println("Initializing Thrift socket transport");
+                transport = new TSocket(host, Integer.parseInt(port));
+            } else if (url != null) {
+                System.out.println("Initializing Thrift HTTP transport");
+                HttpClient httpClient = new DefaultHttpClient();
+                transport = new THttpClient(url, httpClient);
+            } else {
+                throw new RPCEvaluatorException("Required Thrift settings not provided");
+            }
+
             transport.open();
             TProtocol protocol = new TBinaryProtocol(transport);
             client = new EchoService.Client(protocol);
@@ -74,6 +87,7 @@ public class EchoClient implements Client {
             response = client.echoString(s);
         } catch (TException e) {
             t = e;
+            e.printStackTrace();
         }
         long end = System.currentTimeMillis();
         if (!s.equals(response)) {
@@ -189,7 +203,8 @@ public class EchoClient implements Client {
             return false;
         }
         for (Map.Entry<Integer,Integer> entry : m1.entrySet()) {
-            if (!m2.containsKey(entry.getKey()) || m2.get(entry.getKey()) != entry.getValue()) {
+            if (!m2.containsKey(entry.getKey()) ||
+                    m2.get(entry.getKey()) != (int) entry.getValue()) {
                 return false;
             }
         }

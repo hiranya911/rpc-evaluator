@@ -20,6 +20,7 @@ public class RPCEvaluationResult {
                 successfulInvocations++;
             } else {
                 failedInvocations++;
+                result.getException().printStackTrace();
             }
             minLatency = Math.min(minLatency, result.getLatency());
             maxLatency = Math.max(maxLatency, result.getLatency());
