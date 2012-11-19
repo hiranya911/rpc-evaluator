@@ -27,18 +27,6 @@ public class EchoClient implements Client {
 	private Echo echo;
 	private String rmiName;
 	File tempFile;
-
-	/*public static void main(String[] args)
-	{
-		EchoClient client = new EchoClient();
-		try {
-			client.init(null);
-			client.echoString("test");
-		} catch (RPCEvaluatorException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}*/
 	
     @Override
     public void init(Properties properties) throws RPCEvaluatorException {
@@ -201,10 +189,17 @@ public class EchoClient implements Client {
         }
         long end = System.currentTimeMillis();
 
-        if (t == null && (response == null || !response.equals(o))) {
+        if (t == null && (response == null || !objectEquals(o, response))) {
             t = new RPCEvaluatorException("Invalid echo response");
         }
         return report(start, end, t);
+    }
+
+    private boolean objectEquals(DataObject o1, DataObject o2) {
+        return o1.getCharacter() == o2.getCharacter() &&
+                o1.getDecimal() == o2.getDecimal() &&
+                o1.getInteger() == o2.getInteger() &&
+                o1.getString().equals(o2.getString());
     }
 
     @Override

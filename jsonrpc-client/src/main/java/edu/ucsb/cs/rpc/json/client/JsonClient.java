@@ -141,11 +141,18 @@ public class JsonClient implements Client {
         }
         long end = System.currentTimeMillis();
 
-        if ((response == null || !response.equals(o)) && t == null) {
+        if ((response == null || !objectEquals(o, response)) && t == null) {
             t = new RPCEvaluatorException("Invalid echo response");
         }
         return report(start, end, t);
 	}
+
+    private boolean objectEquals(DataObject o1, DataObject o2) {
+        return o1.getCharacter() == o2.getCharacter() &&
+                o1.getDecimal() == o2.getDecimal() &&
+                o1.getInteger() == o2.getInteger() &&
+                o1.getString().equals(o2.getString());
+    }
 
 	@Override
 	public InvocationResult echoMap(Map<Integer, Integer> map) {

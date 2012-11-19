@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executors;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
 
 import edu.ucsb.cs.rpc.base.DataObject;
@@ -41,11 +43,11 @@ public class ProtobufEchoServer extends EchoService {
 	public static final String SERVICE_ENDPOINT = "ProtoBuf.ServerEndpoint";
     public static final String SERVICE_PORT = "ProtoBuf.ServerPort";
 	
-    static {
-        System.setProperty("org.apache.commons.logging.Log",
-                           "org.apache.commons.logging.impl.NoOpLog");
-     }
-    
+//    static {
+//        System.setProperty("org.apache.commons.logging.Log",
+//                           "org.apache.commons.logging.impl.NoOpLog");
+//    }
+
     private static String getString(Properties properties, String name) throws RPCEvaluatorException
     {
     	String value = properties.getProperty(name);
