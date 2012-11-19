@@ -11,7 +11,7 @@ import edu.ucsb.cs.rpc.base.RPCEvaluatorException;
 public class EchoClient implements Client{
 
 	public static final String ICE_ENDPOINT = "ice.Endpoint";
-	private Service.EchoPrx echoService;
+	private edu.ucsb.cs.rpc.ice.service.EchoPrx echoService;
 	private Ice.Communicator ic = null;
 
 	
@@ -26,7 +26,7 @@ public class EchoClient implements Client{
 		ic = Ice.Util.initialize();
 		Ice.ObjectPrx base = ic
 				.stringToProxy("EchoService:default -p 9999 -h " + endpoint);
-		echoService = Service.EchoPrxHelper.checkedCast(base);
+		echoService = edu.ucsb.cs.rpc.ice.service.EchoPrxHelper.checkedCast(base);
 		if (echoService == null)
 			throw new RPCEvaluatorException("Invalid proxy");
 	}

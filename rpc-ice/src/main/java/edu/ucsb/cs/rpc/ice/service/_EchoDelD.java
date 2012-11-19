@@ -18,7 +18,7 @@
 // </auto-generated>
 //
 
-package Service;
+package edu.ucsb.cs.rpc.ice.service;
 
 public final class _EchoDelD extends Ice._ObjectDelD implements _EchoDel
 {

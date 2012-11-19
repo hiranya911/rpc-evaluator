@@ -5,7 +5,7 @@ import java.util.Map;
 import Ice.Current;
 import edu.ucsb.cs.rpc.base.DataObject;
 
-public class EchoI extends Service._EchoDisp {
+public class EchoI extends edu.ucsb.cs.rpc.ice.service._EchoDisp {
 
 	@Override
 	public void doNothing(Current __current) {

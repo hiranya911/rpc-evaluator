@@ -18,7 +18,7 @@
 // </auto-generated>
 //
 
-package Service;
+package edu.ucsb.cs.rpc.ice.service;
 
 public final class EchoPrxHelper extends Ice.ObjectPrxHelperBase implements EchoPrx
 {

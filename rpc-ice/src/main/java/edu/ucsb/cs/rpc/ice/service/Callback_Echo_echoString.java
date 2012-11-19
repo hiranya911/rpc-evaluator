@@ -18,7 +18,7 @@
 // </auto-generated>
 //
 
-package Service;
+package edu.ucsb.cs.rpc.ice.service;
 
 public abstract class Callback_Echo_echoString extends Ice.TwowayCallback
 {

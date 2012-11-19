@@ -18,7 +18,7 @@
 // </auto-generated>
 //
 
-package Service;
+package edu.ucsb.cs.rpc.ice.service;
 
 public interface EchoPrx extends Ice.ObjectPrx
 {

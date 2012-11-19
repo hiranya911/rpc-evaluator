@@ -18,7 +18,7 @@
 // </auto-generated>
 //
 
-package Service;
+package edu.ucsb.cs.rpc.ice.service;
 
 public abstract class _EchoDisp extends Ice.ObjectImpl implements Echo
 {
