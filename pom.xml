@@ -21,13 +21,22 @@
         <module>rpc-protobuf-client</module>
         <module>jsonrpc-service</module>
         <module>jsonrpc-client</module>
+        <module>rpc-ice</module>
     </modules>
 
     <repositories>
         <repository>
-            <id>wso2-m2</id>
-            <name>WSO2 Maven 2 Repository</name>
+            <id>apache-m2</id>
+            <name>Apache Snapshot Repo</name>
             <url>https://repository.apache.org/content/repositories/snapshots/</url>
+            <releases>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+        </repository>
+        <repository>
+            <id>hiranya-m2</id>
+            <name>Hiranya's Maven Repo on Minotaur</name>
+            <url>http://people.apache.org/~hiranya/m2/</url>
             <releases>
                 <updatePolicy>never</updatePolicy>
             </releases>
@@ -150,6 +159,12 @@
                 <version>2.0.1</version>
                 <type>jar</type>
             </dependency>
+
+            <dependency>
+                <groupId>com.zeroc</groupId>
+                <artifactId>ice</artifactId>
+                <version>3.4.2</version>
+            </dependency>
         
             <dependency>
                 <groupId>junit</groupId>
@@ -196,6 +211,11 @@
             <dependency>
                 <groupId>edu.ucsb.cs.rpc-evaluator</groupId>
                 <artifactId>json-rpc-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>edu.ucsb.cs.rpc-evaluator</groupId>
+                <artifactId>rpc-ice</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

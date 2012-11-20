@@ -76,6 +76,11 @@
             <artifactId>json-rpc-client</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>edu.ucsb.cs.rpc-evaluator</groupId>
+            <artifactId>rpc-ice</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <!-- SOAP/Axis2 Dependencies -->
         <dependency>
