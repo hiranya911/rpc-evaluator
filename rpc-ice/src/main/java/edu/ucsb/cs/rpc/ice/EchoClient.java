@@ -10,7 +10,7 @@ import edu.ucsb.cs.rpc.base.RPCEvaluatorException;
 
 public class EchoClient implements Client{
 
-	public static final String ICE_ENDPOINT = "ice.Endpoint";
+	public static final String ICE_ENDPOINT = "ICE.Endpoint";
 	private edu.ucsb.cs.rpc.ice.service.EchoPrx echoService;
 	private Ice.Communicator ic = null;
 
@@ -21,30 +21,21 @@ public class EchoClient implements Client{
 		String endpoint = properties.getProperty(ICE_ENDPOINT);
         if (endpoint == null || "".equals(endpoint)) {
             throw new RPCEvaluatorException("ICE.Endpoint parameter not specified");
-        }		
-        
-		ic = Ice.Util.initialize();
+        }
+
+        Ice.StringSeqHolder argsH = new Ice.StringSeqHolder(new String[] {});
+        Ice.Properties props = Ice.Util.createProperties(argsH);
+        props.setProperty("Ice.MessageSizeMax", "2048");
+        Ice.InitializationData id = new Ice.InitializationData();
+        id.properties = props;
+		ic = Ice.Util.initialize(id);
 		Ice.ObjectPrx base = ic
 				.stringToProxy("EchoService:default -p 9999 -h " + endpoint);
 		echoService = edu.ucsb.cs.rpc.ice.service.EchoPrxHelper.checkedCast(base);
 		if (echoService == null)
 			throw new RPCEvaluatorException("Invalid proxy");
 	}
-/*
-	public static void main(String[] args) {
-		EchoClient client = new EchoClient();
-		
-		try {
-			client.init(null);
 
-		} catch (RPCEvaluatorException e) {
-			e.printStackTrace();
-		}
-		
-		client.destroy();
-	}
-*/	
-	
 	@Override
 	public void destroy() {
 		try {

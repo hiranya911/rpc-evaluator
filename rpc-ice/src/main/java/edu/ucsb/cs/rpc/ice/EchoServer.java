@@ -4,7 +4,12 @@ public class EchoServer {
 		int status = 0;
 		Ice.Communicator ic = null;
 		try {
-			ic = Ice.Util.initialize(args);
+            Ice.StringSeqHolder argsH = new Ice.StringSeqHolder(args);
+            Ice.Properties props = Ice.Util.createProperties(argsH);
+            props.setProperty("Ice.MessageSizeMax", "2048");
+            Ice.InitializationData id = new Ice.InitializationData();
+            id.properties = props;
+			ic = Ice.Util.initialize(id);
 			Ice.ObjectAdapter adapter = ic.createObjectAdapterWithEndpoints(
 					"EchoAdapter", "default -p 9999");
 			Ice.Object object = new EchoI();
