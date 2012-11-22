@@ -1,27 +1,12 @@
 package edu.ucsb.cs.rpc.protobuf;
 
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executors;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
-
-import edu.ucsb.cs.rpc.base.DataObject;
 import edu.ucsb.cs.rpc.base.RPCEvaluatorException;
-
-import com.google.protobuf.ByteString;
 import com.google.protobuf.RpcCallback;
 import com.google.protobuf.RpcController;
 import com.googlecode.protobuf.pro.duplex.PeerInfo;
@@ -43,10 +28,10 @@ public class ProtobufEchoServer extends EchoService {
 	public static final String SERVICE_ENDPOINT = "ProtoBuf.ServerEndpoint";
     public static final String SERVICE_PORT = "ProtoBuf.ServerPort";
 	
-//    static {
-//        System.setProperty("org.apache.commons.logging.Log",
-//                           "org.apache.commons.logging.impl.NoOpLog");
-//    }
+    static {
+        System.setProperty("org.apache.commons.logging.Log",
+                           "org.apache.commons.logging.impl.NoOpLog");
+    }
 
     private static String getString(Properties properties, String name) throws RPCEvaluatorException
     {
